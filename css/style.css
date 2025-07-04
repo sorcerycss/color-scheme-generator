@@ -6,47 +6,48 @@
 
 body {
   margin: 0;
-
-  height: 100vh;
-  /* width: 100vw; */
+  height: 100%;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
+/* MAIN APP LAYOUT */
 .app {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
+  align-items: center;
 }
 
+/* MENU BAR */
 .menu {
-  padding: 1em;
+  padding: 1rem;
   display: flex;
+  gap: 1rem;
   justify-content: center;
-  gap: 1em;
 }
 
+/* SCROLL CONTAINER FOR COLOR BLOCKS */
 .color-generator {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
   flex: 1;
-  scroll-snap-type: x mandatory;
-  /* height: calc(100vh - 100px); */
-  /* max-width: 100%; */
-  /* overflow: hidden; */
-  /* gap: 0;
-  margin: 0; */
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center; /* Center blocks when they fit */
+  align-items: stretch;
 }
 
+/* INDIVIDUAL BLOCK COLUMN */
 .color-column {
+  width: 110px;
   display: flex;
   flex-direction: column;
-  flex: 0 0 110px;
-  scroll-snap-align: start;
+  align-items: center;
+  flex-shrink: 0; /* Prevent shrinking when too many blocks */
 }
 
+/* COLOR AREA (fills vertical space) */
 .color-block {
   background-color: var(--bg-color);
   flex: 1;
@@ -54,17 +55,25 @@ body {
   cursor: pointer;
 }
 
+/* LABEL UNDERNEATH */
 .color-label {
   width: 100%;
   text-align: center;
   padding: 0.5rem;
-  background: white;
-  color: #333;
+  background: #fff;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: color 0.2s;
 }
 
 .color-label.copied {
   color: green;
+}
+
+.color-generator {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.color-column {
+  scroll-snap-align: center;
 }
