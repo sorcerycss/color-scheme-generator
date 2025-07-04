@@ -29,12 +29,28 @@ function getClrSch() {
       const clrArr = clrsch.colors;
       const html = clrArr
         .map((clr) => {
-          return `<div style="background: ${clr.hex.value}" data-hex="${clr.hex.value}">
-              <span>${clr.hex.value}</span>
-            </div>`;
+          return `
+          <div class="color-column">
+            <div class="color-block" data-hex="${clr.hex.value}" style="--bg-color: ${clr.hex.value}">
+            </div>
+              <span class="color-label" data-hex="${clr.hex.value}">
+                ${clr.hex.value}
+              </span>
+          </div>`;
         })
         .join("");
-      document.getElementById("color-generator").innerHTML = html;
+
+      const container = document.getElementById("color-generator");
+      container.innerHTML = html;
+      // Click to copy for both block and label
+      container.querySelectorAll(".color-block, .color-label").forEach((el) => {
+        el.addEventListener("click", () => {
+          const hex = el.getAttribute("data-hex");
+          navigator.clipboard.writeText(hex);
+          el.classList.add("copied");
+          setTimeout(() => el.classList.remove("copied"), 1000);
+        });
+      });
     });
 }
 
